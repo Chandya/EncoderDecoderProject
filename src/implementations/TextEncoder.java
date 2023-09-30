@@ -5,7 +5,8 @@ import utils.exceptions.InvalidOffsetCharacterException;
 import utils.exceptions.InvalidTextException;
 
 /**
- * Encapsulation: Each class (TextEncoder, TextDecoder) encapsulates its own logic and data. 
+ * Encapsulation: Each class (TextEncoder, TextDecoder) encapsulates its own
+ * logic and data.
  * For example, TextEncoder encapsulates the encoding logic.
  */
 
@@ -18,7 +19,8 @@ public class TextEncoder implements Encoder {
     }
 
     @Override
-    public String encode(String plainText, char offsetChar) throws InvalidOffsetCharacterException, InvalidTextException {
+    public String encode(String plainText, char offsetChar)
+            throws InvalidOffsetCharacterException, InvalidTextException {
 
         if (plainText.isEmpty()) {
             throw new InvalidTextException("Invalid Plain Text");
@@ -37,8 +39,9 @@ public class TextEncoder implements Encoder {
             int index = referenceTable.indexOf(c);
 
             if (index != -1) {
+                int refTableLen = referenceTable.length();
                 // Shift the index based on the offset
-                int shiftedIndex = (index - offsetIndex + referenceTable.length()) % referenceTable.length();
+                int shiftedIndex = (index - offsetIndex + refTableLen) % refTableLen;
                 encodedText.append(referenceTable.charAt(shiftedIndex));
             } else {
                 // Character not in the reference table, keep it as is
